@@ -1,0 +1,14 @@
+# Fichier .gitignore
+
+# Fichiers de secrets et d'environnement local
+.env.local
+
+# Dépendances (installées par npm)
+node_modules
+
+# Fichiers système de macOS et Windows
+.DS_Store
+Thumbs.db
+
+# Fichiers de log générés par Vercel localement
+.vercel
