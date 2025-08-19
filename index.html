@@ -6,8 +6,7 @@
     <title>Offre de Service - IdéeLab inc.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- POLICE ORBITRON AJOUTÉE ICI -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -25,7 +24,6 @@
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .background-gradient { animation: none !important; }
-            .scroll-indicator { animation: none !important; }
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -47,42 +45,10 @@
         .control-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; transition: background-color 0.3s, color 0.3s; display: flex; align-items: center; gap: 8px; }
         .control-btn:hover { background-color: var(--glass-bg); color: var(--text-strong-color); }
         .control-btn svg { width: 16px; height: 16px; fill: currentColor; }
-        
-        .hero-name { 
-            font-family: 'Orbitron', sans-serif; 
-            font-weight: 700;
-            font-size: clamp(3rem, 10vw, 5.5rem); 
-            color: var(--text-strong-color); 
-            margin: 0; 
-        }
+        .hero-name { font-family: 'Lexend', sans-serif; font-size: clamp(3rem, 10vw, 5.5rem); color: var(--text-strong-color); margin: 0; }
         .hero-title { font-family: 'Lexend', sans-serif; font-size: clamp(1.2rem, 4vw, 1.8rem); margin: 0.5rem 0 1.5rem 0; font-weight: 400; color: var(--primary-color); }
         .section-title { font-family: 'Lexend', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.25rem); color: var(--text-strong-color); margin-bottom: 2rem; }
         
-        /* --- NOUVEL INDICATEUR DE DÉFILEMENT --- */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--text-color);
-            opacity: 0.7;
-            animation: bounce 2.5s infinite ease-in-out;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-                opacity: 0.7;
-            }
-            40% {
-                transform: translateX(-50%) translateY(-15px);
-                opacity: 1;
-            }
-            60% {
-                transform: translateX(-50%) translateY(-10px);
-                opacity: 0.9;
-            }
-        }
-
         .weaving-timeline-wrapper { width: 100%; max-width: 800px; margin: 0 auto; position: relative; padding: 20px 0; }
         .timeline-spine { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background-color: var(--border-color); transform: translateX(-50%) scaleY(0); transform-origin: top; }
         .timeline-item { position: relative; margin-bottom: 30px; width: 50%; opacity: 0; }
@@ -234,21 +200,7 @@
 
     <div class="scroll-container">
         <div class="background-gradient"></div>
-        <section class="hero full-page">
-            <canvas id="particle-canvas"></canvas>
-            <div class="top-right-controls"><button id="lang-toggle" class="control-btn">EN</button><button id="fullscreen-toggle" class="control-btn"><svg viewBox="0 0 24 24"><path d="M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17H7V19H5V14H7V17H10V19Z"></path></svg></button></div>
-            <div class="container-interactive">
-                <h1 class="hero-name" data-lang="heroName">IdéeLab inc.</h1>
-                <h2 class="hero-title" data-lang="heroTitle">Explorer l'innovation, créer le futur.</h2>
-            </div>
-            <!-- INDICATEUR DE DÉFILEMENT AJOUTÉ ICI -->
-            <div class="scroll-indicator">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <polyline points="7 13 12 18 17 13"></polyline>
-                    <polyline points="7 6 12 11 17 6"></polyline>
-                </svg>
-            </div>
-        </section>
+        <section class="hero full-page"><canvas id="particle-canvas"></canvas><div class="top-right-controls"><button id="lang-toggle" class="control-btn">EN</button><button id="fullscreen-toggle" class="control-btn"><svg viewBox="0 0 24 24"><path d="M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17H7V19H5V14H7V17H10V19Z"></path></svg></button></div><div class="container-interactive"><h1 class="hero-name" data-lang="heroName">IdéeLab inc.</h1><h2 class="hero-title" data-lang="heroTitle">Explorer l'innovation, créer le futur.</h2></div></section>
         
         <section class="full-page" id="approach-section">
             <div class="container-interactive">
@@ -361,8 +313,8 @@
                 ctaTitle: "Prêts à lancer le projet ?", ctaButton: "Générer l'Offre de Service",
                 contractTitle: "Offre de Service", contractPresentedBy: "Présentée par IdéeLab inc.",
                 contractClient: "Client", contractAttention: "À l'attention de:",
-                contractUnderstanding: "Compréhension du Projet", contractSolution: "Solution Proposée", contractSolutionText: "IdéeLab inc. propose de développer une solution sur mesure pour répondre aux objectifs cités ci-dessus.",
-                contractInvestment: "Investissement", estimatedHours: "Heures estimées", hourlyRate: "Taux horaire", estimatedTotal: "Total",
+                contractUnderstanding: "Compréhension du Projet", contractSolution: "Solution Proposée",
+                contractInvestment: "Investissement",
                 contractDisclaimer: "Veuillez noter que cette estimation est fournie à titre indicatif, basée sur notre compréhension initiale de vos besoins. Le coût final sera facturé en fonction des heures réelles consacrées au projet.",
                 contractSignature: "Signatures", signatureDate: "Date",
                 contractRoiTitle: "ROI Potentiel", contractRoiText: "Basé sur les données fournies, l'automatisation de ces processus pourrait représenter une économie annuelle estimée de :",
@@ -373,7 +325,9 @@
 
         window.addEventListener('load', () => {
             let currentLang = 'fr';
+            // --- MODIFICATION 1: Ajout d'une variable pour les heures ---
             let generatedSolutionHtml = ''; 
+            let generatedHours = 0;
             let animationFrameId; 
             let isAnimationRunning = true;
 
@@ -416,24 +370,7 @@
                 document.getElementById('roiAmount').textContent = formatter.format(annualSavings);
             }
 
-            function estimateProjectHours(projectGoals) {
-                const goals = projectGoals.toLowerCase();
-                let hours = 20;
-                const keywords = {
-                    customer_service: ['service client', 'support', 'clientèle', 'questions', 'customer service'],
-                    invoicing: ['facture', 'facturation', 'paiement', 'comptabilité', 'invoice', 'billing', 'payment'],
-                    data_analysis: ['données', 'rapport', 'analyse', 'reporting', 'data', 'analysis'],
-                    process_automation: ['processus', 'tâches', 'répétitif', 'automatiser', 'process', 'tasks', 'automate']
-                };
-                if (keywords.customer_service.some(kw => goals.includes(kw))) hours += 25;
-                if (keywords.invoicing.some(kw => goals.includes(kw))) hours += 30;
-                if (keywords.data_analysis.some(kw => goals.includes(kw))) hours += 40;
-                if (keywords.process_automation.some(kw => goals.includes(kw))) hours += 20;
-                if (goals.length > 200) hours += 15;
-                if (goals.length > 400) hours += 20;
-                return hours;
-            }
-
+            // --- MODIFICATION 2: Simplification de la fonction d'appel ---
             async function generateSolutionWithAI(projectGoals, lang) {
                 try {
                     const apiUrl = new URL('/api/generate', window.location.href);
@@ -449,15 +386,17 @@
                     if (data.error) {
                         throw new Error(data.error);
                     }
-                    return data.solution;
+                    // On retourne l'objet complet { solution, estimatedHours }
+                    return data;
                 } catch (error) {
                     console.error("Impossible de contacter notre API.", error);
-                    alert(`Désolé, une erreur est survenue lors de la génération par l'IA :\n\n${error.message}\n\nVérifiez votre clé API et la console pour plus de détails.`);
+                    alert(`Désolé, une erreur est survenue lors de la génération par l'IA :\n\n${error.message}\n\nVérifiez la console pour plus de détails.`);
                     return null;
                 }
             }
             
             function prepareAndPrint() {
+                // --- MODIFICATION 4: La condition de vérification est maintenant plus simple ---
                 if (!generatedSolutionHtml) {
                     alert("Veuillez d'abord soumettre la description de votre projet à l'aide du bouton 'Pré-générer la Solution'.");
                     return;
@@ -476,15 +415,17 @@
                     const projectGoals = document.getElementById('projectGoals').value;
                     const potentialSavings = document.getElementById('roiAmount').textContent;
                     
+                    // On injecte le HTML de la solution et la description originale
                     document.getElementById('contractSolution').innerHTML = generatedSolutionHtml;
+                    document.getElementById('contractProjectGoals').textContent = projectGoals || "[Non spécifié]";
                     
-                    const estimatedHours = estimateProjectHours(projectGoals);
+                    // On utilise les heures fournies par l'IA
+                    const estimatedHours = generatedHours;
                     const totalCost = estimatedHours * 75;
 
                     document.getElementById('contractClientName').textContent = clientName || "[Non spécifié]";
                     document.getElementById('contractCompanyName').textContent = companyName || "[Non spécifié]";
                     document.getElementById('contractClientContact').textContent = clientContact || "[Non spécifié]";
-                    document.getElementById('contractProjectGoals').textContent = projectGoals || "[Non spécifié]";
                     document.getElementById('contractRoiValue').textContent = potentialSavings;
                     document.getElementById('contractSignatureName').textContent = companyName || "[Non spécifié]";
                     document.getElementById('contractEstimatedHours').textContent = estimatedHours;
@@ -499,6 +440,8 @@
             // --- ATTACHE DES ÉVÉNEMENTS ---
             document.getElementById('lang-toggle').addEventListener('click', () => switchLanguage(currentLang === 'fr' ? 'en' : 'fr'));
             document.getElementById('fullscreen-toggle').addEventListener('click', toggleFullscreen);
+            
+            // --- MODIFICATION 3: Mise à jour de la logique du bouton "Soumettre" ---
             document.getElementById('submit-project-btn').addEventListener('click', async () => {
                 const submitBtn = document.getElementById('submit-project-btn');
                 const feedbackMsg = document.getElementById('feedback-message');
@@ -506,15 +449,21 @@
                 const originalBtnText = submitBtn.textContent;
                 feedbackMsg.textContent = '';
                 const projectGoals = projectGoalsTextarea.value;
+
                 if (!projectGoals.trim()) {
                     alert('Veuillez décrire votre projet avant de soumettre.');
                     return;
                 }
+
                 submitBtn.disabled = true;
                 submitBtn.innerHTML = `Génération en cours... <span class="spinner"></span>`;
+                
                 const result = await generateSolutionWithAI(projectGoals, currentLang);
-                if (result) {
-                    generatedSolutionHtml = result;
+                
+                // On vérifie que le résultat et la clé "solution" existent
+                if (result && result.solution) {
+                    generatedSolutionHtml = result.solution;
+                    generatedHours = result.estimatedHours; // On stocke les heures
                     feedbackMsg.textContent = '✔ Solution pré-générée avec succès !';
                     submitBtn.textContent = 'Régénérer la Solution';
                 } else {
@@ -523,6 +472,7 @@
                 }
                 submitBtn.disabled = false;
             });
+
             document.getElementById('generateBtn').addEventListener('click', prepareAndPrint);
             document.getElementById('employees').addEventListener('input', updateROI);
             document.getElementById('hours').addEventListener('input', updateROI);
