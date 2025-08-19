@@ -1,4 +1,5 @@
 # Fichier .gitignore
+.claude
 
 # Fichiers de secrets et d'environnement local
 .env.local
