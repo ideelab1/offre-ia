@@ -6,7 +6,8 @@
     <title>Offre de Service - IdéeLab inc.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- MODIFICATION: Ajout de la police Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -45,7 +46,7 @@
         .control-btn { background: none; border: 1px solid var(--border-color); color: var(--text-color); padding: 8px 12px; border-radius: 8px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 14px; transition: background-color 0.3s, color 0.3s; display: flex; align-items: center; gap: 8px; }
         .control-btn:hover { background-color: var(--glass-bg); color: var(--text-strong-color); }
         .control-btn svg { width: 16px; height: 16px; fill: currentColor; }
-        .hero-name { font-family: 'Lexend', sans-serif; font-size: clamp(3rem, 10vw, 5.5rem); color: var(--text-strong-color); margin: 0; }
+        .hero-name { font-family: 'Orbitron', sans-serif; font-size: clamp(3rem, 10vw, 5.5rem); color: var(--text-strong-color); margin: 0; font-weight: 700; }
         .hero-title { font-family: 'Lexend', sans-serif; font-size: clamp(1.2rem, 4vw, 1.8rem); margin: 0.5rem 0 1.5rem 0; font-weight: 400; color: var(--primary-color); }
         .section-title { font-family: 'Lexend', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.25rem); color: var(--text-strong-color); margin-bottom: 2rem; }
         
@@ -64,12 +65,37 @@
         .timeline-content { background: var(--glass-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); backdrop-filter: blur(8px); }
         .timeline-content h4 { font-family: 'Lexend', sans-serif; color: var(--secondary-color); margin: 0 0 0.5rem 0; font-size: 1.2rem; }
         .timeline-content p { font-size: 0.9rem; line-height: 1.6; margin: 0; }
+        
+        /* --- AJOUT : Style pour les numéros de la timeline --- */
+        .timeline-number {
+            position: absolute;
+            top: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--highlight-color);
+            opacity: 0; /* Initialement invisible pour l'animation */
+            z-index: 0;
+            text-shadow: 0 0 15px rgba(244, 114, 182, 0.5);
+            transform: scale(0.5); /* Démarrer petit pour l'animation */
+        }
+        .timeline-item:nth-child(odd) .timeline-number {
+            right: 100%;
+            margin-right: 20px;
+        }
+        .timeline-item:nth-child(even) .timeline-number {
+            left: 100%;
+            margin-left: 20px;
+        }
+
         @media (max-width: 768px) {
             .timeline-spine { left: 20px; }
             .timeline-item, .timeline-item:nth-child(even) { width: 100%; margin-left: 0; padding-left: 50px; padding-right: 0; text-align: left; }
             .timeline-item:nth-child(odd) { transform: translateX(20px); }
             .timeline-item:nth-child(odd) .timeline-branch, .timeline-item:nth-child(even) .timeline-branch { left: 0; width: 30px; transform-origin: left; }
             .timeline-item:nth-child(odd) .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: -6px; }
+            /* --- AJOUT : Position des numéros sur mobile --- */
+            .timeline-number { display: none; } /* On cache les numéros sur petit écran pour ne pas surcharger */
         }
 
         .cost-card { 
@@ -208,6 +234,8 @@
                 <div class="weaving-timeline-wrapper">
                     <div class="timeline-spine"></div>
                     <div class="timeline-item">
+                        <!-- AJOUT : Numéro 1 -->
+                        <div class="timeline-number">1</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
                         <div class="timeline-content">
@@ -216,6 +244,8 @@
                         </div>
                     </div>
                     <div class="timeline-item">
+                        <!-- AJOUT : Numéro 2 -->
+                        <div class="timeline-number">2</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
                         <div class="timeline-content">
@@ -224,6 +254,8 @@
                         </div>
                     </div>
                     <div class="timeline-item">
+                        <!-- AJOUT : Numéro 3 -->
+                        <div class="timeline-number">3</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
                         <div class="timeline-content">
@@ -232,6 +264,8 @@
                         </div>
                     </div>
                     <div class="timeline-item">
+                        <!-- AJOUT : Numéro 4 -->
+                        <div class="timeline-number">4</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
                         <div class="timeline-content">
@@ -320,13 +354,41 @@
                 contractRoiTitle: "ROI Potentiel", contractRoiText: "Basé sur les données fournies, l'automatisation de ces processus pourrait représenter une économie annuelle estimée de :",
                 modalImpactTitle: "Impact Financier",
             },
-            en: { /* ... traductions anglaises ... */ }
+            en: {
+                heroName: "IdéeLab Inc.", heroTitle: "Exploring innovation, creating the future.",
+                approachTitle: "Our Approach",
+                approachStep1Title: "Discovery",
+                approachStep1Text: "Analysis of your challenges and identification of opportunities.",
+                approachStep2Title: "Co-creation",
+                approachStep2Text: "Design of a tailor-made strategy and action plan.",
+                approachStep3Title: "Development",
+                approachStep3Text: "Agile construction and integration of the solution.",
+                approachStep4Title: "Deployment",
+                approachStep4Text: "Launch and rigorous monitoring for optimal performance.",
+                costTitle: "The Cost of Inaction", costCard1Title: "Repetitive Tasks", costCard1Text: "Valuable hours are lost each week by your teams on manual tasks that could be automated.", costCard2Title: "Human Errors", costCard2Text: "Manual data entry and complex processes lead to costly errors in time and money.", costCard3Title: "Untapped Potential", costCard3Text: "Your most skilled employees are held back by administrative tasks, instead of focusing on growth and innovation.",
+                roiTitle: "Calculate Your Potential", roiEmployees: "Number of employees performing these tasks", roiHours: "Hours lost per employee per week", roiWage: "Average hourly cost of an employee", roiSavings: "Potential Annual Savings", roiPerYear: "per year",
+                projectTitle: "Let's Define Your Project", projectDesc: "To help us understand your needs, please fill out this short form. The information provided will help us generate a draft of a personalized solution in your service offer.",
+                formCompany: "Company Name", formCompanyPlaceholder: "E.g., My Company Inc.",
+                formName: "Contact Person", formNamePlaceholder: "E.g., John Doe",
+                formContact: "Contact Information (email or phone)", formContactPlaceholder: "E.g., john.doe@mycompany.com",
+                formGoals: "Project Description and Objectives", formGoalsPlaceholder: "E.g., We want to automate our customer service...",
+                ctaTitle: "Ready to start the project?", ctaButton: "Generate Service Offer",
+                contractTitle: "Service Offer", contractPresentedBy: "Presented by IdéeLab Inc.",
+                contractClient: "Client", contractAttention: "Attention:",
+                contractUnderstanding: "Project Understanding", contractSolution: "Proposed Solution",
+                contractInvestment: "Investment",
+                contractDisclaimer: "Please note that this estimate is provided for informational purposes, based on our initial understanding of your needs. The final cost will be billed based on the actual hours spent on the project.",
+                contractSignature: "Signatures", signatureDate: "Date",
+                contractRoiTitle: "Potential ROI", contractRoiText: "Based on the data provided, automating these processes could represent an estimated annual saving of:",
+                modalImpactTitle: "Financial Impact",
+            }
         };
 
         window.addEventListener('load', () => {
             let currentLang = 'fr';
             let generatedSolutionHtml = ''; 
             let generatedHours = 0;
+            let generatedDescription = '';
             let animationFrameId; 
             let isAnimationRunning = true;
 
@@ -378,8 +440,6 @@
                         body: JSON.stringify({ projectGoals, lang }),
                     });
 
-                    console.log('Statut de la réponse du serveur:', response.status, response.statusText);
-
                     if (!response.ok) {
                         const errorText = await response.text();
                         console.error('Réponse d\'erreur du serveur (texte):', errorText);
@@ -387,8 +447,6 @@
                     }
                     
                     const data = await response.json();
-                    
-                    console.log('Données JSON reçues et parsées avec succès:', data);
                     
                     if (data.error) {
                         throw new Error(data.error);
@@ -417,11 +475,10 @@
                     const clientName = document.getElementById('clientName').value;
                     const companyName = document.getElementById('companyName').value;
                     const clientContact = document.getElementById('clientContact').value;
-                    const projectGoals = document.getElementById('projectGoals').value;
                     const potentialSavings = document.getElementById('roiAmount').textContent;
                     
                     document.getElementById('contractSolution').innerHTML = generatedSolutionHtml;
-                    document.getElementById('contractProjectGoals').textContent = projectGoals || "[Non spécifié]";
+                    document.getElementById('contractProjectGoals').textContent = generatedDescription || "[Non spécifié]";
                     
                     const estimatedHours = generatedHours;
                     const totalCost = estimatedHours * 75;
@@ -461,20 +518,15 @@
                 
                 const result = await generateSolutionWithAI(projectGoals, currentLang);
                 
-                console.log('Vérification du résultat avant de stocker:', result);
-
-                // --- CORRECTION FINALE ---
-                // On vérifie si result est un tableau et on prend le premier élément
                 const solutionData = Array.isArray(result) ? result[0] : result;
 
-                if (solutionData && solutionData.solution) {
-                    console.log('SUCCÈS: La clé "solution" a été trouvée. Stockage des données.');
-                    generatedSolutionHtml = solutionData.solution;
+                if (solutionData && solutionData.improvedDescription && solutionData.proposedSolutionsHTML) {
+                    generatedDescription = solutionData.improvedDescription;
+                    generatedSolutionHtml = solutionData.proposedSolutionsHTML;
                     generatedHours = solutionData.estimatedHours;
                     feedbackMsg.textContent = '✔ Solution pré-générée avec succès !';
                     submitBtn.textContent = 'Régénérer la Solution';
                 } else {
-                    console.log('ÉCHEC: Le résultat est invalide ou ne contient pas la clé "solution".', solutionData);
                     feedbackMsg.textContent = '❌ Échec de la génération.';
                     submitBtn.textContent = originalBtnText;
                 }
@@ -514,6 +566,14 @@
                   scale: 1,
                   duration: 0.5,
                   ease: "back.out(1.7)",
+                  stagger: 0.5
+              }, "-=1.5")
+              // --- AJOUT : Animation pour les numéros ---
+              .to(".timeline-number", {
+                  opacity: 0.4,
+                  scale: 1,
+                  duration: 0.6,
+                  ease: "power2.out",
                   stagger: 0.5
               }, "-=1.5")
               .to(".timeline-branch", {
