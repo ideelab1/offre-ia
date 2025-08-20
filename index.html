@@ -325,7 +325,6 @@
 
         window.addEventListener('load', () => {
             let currentLang = 'fr';
-            // --- MODIFICATION 1: Ajout d'une variable pour les heures ---
             let generatedSolutionHtml = ''; 
             let generatedHours = 0;
             let animationFrameId; 
@@ -370,7 +369,6 @@
                 document.getElementById('roiAmount').textContent = formatter.format(annualSavings);
             }
 
-            // --- MODIFICATION 2: Simplification de la fonction d'appel ---
             async function generateSolutionWithAI(projectGoals, lang) {
                 try {
                     const apiUrl = new URL('/api/generate', window.location.href);
@@ -379,24 +377,38 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ projectGoals, lang }),
                     });
+
+                    // --- AJOUT DE L'ESPION #1 ---
+                    // On vérifie le statut de la réponse avant tout
+                    console.log('Statut de la réponse du serveur:', response.status, response.statusText);
+
                     if (!response.ok) {
+                        // Si le statut n'est pas OK, on essaie de lire la réponse comme du texte
+                        const errorText = await response.text();
+                        console.error('Réponse d\'erreur du serveur (texte):', errorText);
                         throw new Error(`Le serveur a répondu avec une erreur: ${response.status}`);
                     }
+                    
                     const data = await response.json();
+
+                    // --- AJOUT DE L'ESPION #2 ---
+                    // On affiche le JSON qu'on a réussi à parser
+                    console.log('Données JSON reçues et parsées avec succès:', data);
+                    
                     if (data.error) {
                         throw new Error(data.error);
                     }
-                    // On retourne l'objet complet { solution, estimatedHours }
                     return data;
                 } catch (error) {
-                    console.error("Impossible de contacter notre API.", error);
-                    alert(`Désolé, une erreur est survenue lors de la génération par l'IA :\n\n${error.message}\n\nVérifiez la console pour plus de détails.`);
+                    // --- AJOUT DE L'ESPION #3 ---
+                    // Cet espion se déclenche si le fetch échoue ou si response.json() plante
+                    console.error("ERREUR CRITIQUE dans generateSolutionWithAI:", error);
+                    alert(`Désolé, une erreur critique est survenue. Consultez la console (F12) pour les détails techniques.`);
                     return null;
                 }
             }
             
             function prepareAndPrint() {
-                // --- MODIFICATION 4: La condition de vérification est maintenant plus simple ---
                 if (!generatedSolutionHtml) {
                     alert("Veuillez d'abord soumettre la description de votre projet à l'aide du bouton 'Pré-générer la Solution'.");
                     return;
@@ -415,11 +427,9 @@
                     const projectGoals = document.getElementById('projectGoals').value;
                     const potentialSavings = document.getElementById('roiAmount').textContent;
                     
-                    // On injecte le HTML de la solution et la description originale
                     document.getElementById('contractSolution').innerHTML = generatedSolutionHtml;
                     document.getElementById('contractProjectGoals').textContent = projectGoals || "[Non spécifié]";
                     
-                    // On utilise les heures fournies par l'IA
                     const estimatedHours = generatedHours;
                     const totalCost = estimatedHours * 75;
 
@@ -437,11 +447,9 @@
                 }
             }
 
-            // --- ATTACHE DES ÉVÉNEMENTS ---
             document.getElementById('lang-toggle').addEventListener('click', () => switchLanguage(currentLang === 'fr' ? 'en' : 'fr'));
             document.getElementById('fullscreen-toggle').addEventListener('click', toggleFullscreen);
             
-            // --- MODIFICATION 3: Mise à jour de la logique du bouton "Soumettre" ---
             document.getElementById('submit-project-btn').addEventListener('click', async () => {
                 const submitBtn = document.getElementById('submit-project-btn');
                 const feedbackMsg = document.getElementById('feedback-message');
@@ -460,13 +468,18 @@
                 
                 const result = await generateSolutionWithAI(projectGoals, currentLang);
                 
-                // On vérifie que le résultat et la clé "solution" existent
+                // --- AJOUT DE L'ESPION #4 ---
+                console.log('Vérification du résultat avant de stocker:', result);
+
                 if (result && result.solution) {
+                    console.log('SUCCÈS: La clé "solution" a été trouvée. Stockage des données.');
                     generatedSolutionHtml = result.solution;
-                    generatedHours = result.estimatedHours; // On stocke les heures
+                    generatedHours = result.estimatedHours;
                     feedbackMsg.textContent = '✔ Solution pré-générée avec succès !';
                     submitBtn.textContent = 'Régénérer la Solution';
                 } else {
+                    // --- AJOUT DE L'ESPION #5 ---
+                    console.log('ÉCHEC: Le résultat est invalide ou ne contient pas la clé "solution".');
                     feedbackMsg.textContent = '❌ Échec de la génération.';
                     submitBtn.textContent = originalBtnText;
                 }
@@ -481,7 +494,6 @@
             switchLanguage('fr');
             updateROI();
 
-            // --- ANIMATION GSAP DE LA TIMELINE "TISSAGE NUMÉRIQUE" ---
             gsap.registerPlugin(ScrollTrigger);
             
             const approachSection = document.getElementById('approach-section');
@@ -516,8 +528,6 @@
                   stagger: 0.5
               }, "-=1.4");
 
-
-            // --- LOGIQUE DE L'ANIMATION DES PARTICULES ---
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
             let particlesArray;
@@ -580,7 +590,6 @@
             resizeCanvas();
             animate();
             
-            // --- LOGIQUE DE LA MODALE "COÛT DE L'INERTIE" ---
             const modalData = {
                 'repetitive': {
                     title: "Tâches Répétitives",
