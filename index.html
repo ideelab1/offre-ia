@@ -6,7 +6,6 @@
     <title>Offre de Service - IdéeLab inc.</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- MODIFICATION: Ajout de la police Orbitron -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 
     <style>
@@ -66,7 +65,6 @@
         .timeline-content h4 { font-family: 'Lexend', sans-serif; color: var(--secondary-color); margin: 0 0 0.5rem 0; font-size: 1.2rem; }
         .timeline-content p { font-size: 0.9rem; line-height: 1.6; margin: 0; }
         
-        /* --- AJOUT : Style pour les numéros de la timeline --- */
         .timeline-number {
             position: absolute;
             top: 10px;
@@ -74,10 +72,10 @@
             font-size: 3.5rem;
             font-weight: 700;
             color: var(--highlight-color);
-            opacity: 0; /* Initialement invisible pour l'animation */
+            opacity: 0;
             z-index: 0;
             text-shadow: 0 0 15px rgba(244, 114, 182, 0.5);
-            transform: scale(0.5); /* Démarrer petit pour l'animation */
+            transform: scale(0.5);
         }
         .timeline-item:nth-child(odd) .timeline-number {
             right: 100%;
@@ -94,8 +92,7 @@
             .timeline-item:nth-child(odd) { transform: translateX(20px); }
             .timeline-item:nth-child(odd) .timeline-branch, .timeline-item:nth-child(even) .timeline-branch { left: 0; width: 30px; transform-origin: left; }
             .timeline-item:nth-child(odd) .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: -6px; }
-            /* --- AJOUT : Position des numéros sur mobile --- */
-            .timeline-number { display: none; } /* On cache les numéros sur petit écran pour ne pas surcharger */
+            .timeline-number { display: none; }
         }
 
         .cost-card { 
@@ -234,7 +231,6 @@
                 <div class="weaving-timeline-wrapper">
                     <div class="timeline-spine"></div>
                     <div class="timeline-item">
-                        <!-- AJOUT : Numéro 1 -->
                         <div class="timeline-number">1</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
@@ -244,7 +240,6 @@
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <!-- AJOUT : Numéro 2 -->
                         <div class="timeline-number">2</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
@@ -254,7 +249,6 @@
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <!-- AJOUT : Numéro 3 -->
                         <div class="timeline-number">3</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
@@ -264,7 +258,6 @@
                         </div>
                     </div>
                     <div class="timeline-item">
-                        <!-- AJOUT : Numéro 4 -->
                         <div class="timeline-number">4</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
@@ -477,8 +470,9 @@
                     const clientContact = document.getElementById('clientContact').value;
                     const potentialSavings = document.getElementById('roiAmount').textContent;
                     
+                    // --- CORRECTION : Utilisation des bonnes variables ---
+                    document.getElementById('contractProjectGoals').textContent = generatedDescription || document.getElementById('projectGoals').value;
                     document.getElementById('contractSolution').innerHTML = generatedSolutionHtml;
-                    document.getElementById('contractProjectGoals').textContent = generatedDescription || "[Non spécifié]";
                     
                     const estimatedHours = generatedHours;
                     const totalCost = estimatedHours * 75;
@@ -518,11 +512,12 @@
                 
                 const result = await generateSolutionWithAI(projectGoals, currentLang);
                 
+                // --- CORRECTION : On gère le cas où la réponse est un tableau ---
                 const solutionData = Array.isArray(result) ? result[0] : result;
 
-                if (solutionData && solutionData.improvedDescription && solutionData.proposedSolutionsHTML) {
-                    generatedDescription = solutionData.improvedDescription;
-                    generatedSolutionHtml = solutionData.proposedSolutionsHTML;
+                // --- CORRECTION : On vérifie la clé "solution" qui est réellement envoyée ---
+                if (solutionData && solutionData.solution) {
+                    generatedSolutionHtml = solutionData.solution;
                     generatedHours = solutionData.estimatedHours;
                     feedbackMsg.textContent = '✔ Solution pré-générée avec succès !';
                     submitBtn.textContent = 'Régénérer la Solution';
@@ -568,7 +563,6 @@
                   ease: "back.out(1.7)",
                   stagger: 0.5
               }, "-=1.5")
-              // --- AJOUT : Animation pour les numéros ---
               .to(".timeline-number", {
                   opacity: 0.4,
                   scale: 1,
