@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offre de Service - IdéeLab inc.</title>
+    <title>Offre de Service Interactive - IdéeLab inc.</title>
+
+    <!-- ===== AJOUTS SEO ===== -->
+    <meta name="description" content="Découvrez les services d'IdéeLab, calculez le ROI de vos projets d'automatisation et générez une offre de service interactive et personnalisée grâce à l'IA.">
+    <meta name="keywords" content="IdéeLab, automatisation, intelligence artificielle, IA, n8n, ROI, offre de service, innovation">
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://offre-ideelab.vercel.app/"> <!-- Mettez votre URL finale ici -->
+    <meta property="og:title" content="Offre de Service Interactive - IdéeLab inc.">
+    <meta property="og:description" content="Générez une offre de service personnalisée pour vos projets d'automatisation et d'IA.">
+    <meta property="og:image" content="https://n8n.ideelabcloud.ovh/images/og-image.jpg"> <!-- URL d'une image pour le partage -->
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://offre-ideelab.vercel.app/"> <!-- Mettez votre URL finale ici -->
+    <meta property="twitter:title" content="Offre de Service Interactive - IdéeLab inc.">
+    <meta property="twitter:description" content="Générez une offre de service personnalisée pour vos projets d'automatisation et d'IA.">
+    <meta property="twitter:image" content="https://n8n.ideelabcloud.ovh/images/og-image.jpg"> <!-- URL d'une image pour le partage -->
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
@@ -23,7 +42,7 @@
         html { scroll-behavior: smooth; }
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
-            .background-gradient { animation: none !important; }
+            .background-gradient, .scroll-indicator { animation: none !important; }
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -36,9 +55,9 @@
         body.modal-open .scroll-container {
             overflow: hidden;
         }
-        .scroll-container { height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
-        .full-page { height: 100vh; scroll-snap-align: start; display: flex; justify-content: center; align-items: center; position: relative; padding: 2rem; }
-        .container-interactive { width: 100%; max-width: 1000px; text-align: center; position: relative; z-index: 2; }
+        .scroll-container { height: 100dvh; overflow-y: scroll; scroll-snap-type: y mandatory; }
+        .full-page { height: 100dvh; scroll-snap-align: start; display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; padding: 2rem; background-color: var(--bg-color); }
+        .container-interactive { width: 100%; max-width: 1100px; text-align: center; position: relative; z-index: 2; }
         .background-gradient { position: absolute; top: 50%; left: 50%; width: 800px; height: 800px; background: radial-gradient(circle, var(--primary-color), transparent 60%); filter: blur(150px); transform: translate(-50%, -50%); animation: rotate-gradient 20s infinite linear; opacity: 0.2; z-index: -1; }
         @keyframes rotate-gradient { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
         .top-right-controls { position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; gap: 15px; }
@@ -49,6 +68,29 @@
         .hero-title { font-family: 'Lexend', sans-serif; font-size: clamp(1.2rem, 4vw, 1.8rem); margin: 0.5rem 0 1.5rem 0; font-weight: 400; color: var(--primary-color); }
         .section-title { font-family: 'Lexend', sans-serif; font-size: clamp(1.8rem, 3.2vw, 2.25rem); color: var(--text-strong-color); margin-bottom: 2rem; }
         
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            opacity: 0;
+            animation: bounce 2.5s infinite 2s;
+            color: white;
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translate(-50%, 0);
+                opacity: 1;
+            }
+            40% {
+                transform: translate(-50%, -20px);
+            }
+            60% {
+                transform: translate(-50%, -10px);
+            }
+        }
+
         .weaving-timeline-wrapper { width: 100%; max-width: 800px; margin: 0 auto; position: relative; padding: 20px 0; }
         .timeline-spine { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background-color: var(--border-color); transform: translateX(-50%) scaleY(0); transform-origin: top; }
         .timeline-item { position: relative; margin-bottom: 30px; width: 50%; opacity: 0; }
@@ -61,38 +103,39 @@
         .timeline-dot { position: absolute; top: 15px; width: 12px; height: 12px; background-color: var(--bg-color); border: 2px solid var(--primary-color); border-radius: 50%; z-index: 1; transform: scale(0); }
         .timeline-item:nth-child(odd) .timeline-dot { right: -6px; }
         .timeline-item:nth-child(even) .timeline-dot { left: -6px; }
-        .timeline-content { background: var(--glass-bg); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--border-color); backdrop-filter: blur(8px); }
-        .timeline-content h4 { font-family: 'Lexend', sans-serif; color: var(--secondary-color); margin: 0 0 0.5rem 0; font-size: 1.2rem; }
+        .timeline-content { background: var(--glass-bg); padding: 1.5rem; position: relative; border-radius: 12px; border: 1px solid var(--border-color); backdrop-filter: blur(8px); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+        .timeline-content:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .timeline-content h4 { font-family: 'Lexend', sans-serif; color: var(--primary-color); margin: 0; font-size: 1.2rem; }
         .timeline-content p { font-size: 0.9rem; line-height: 1.6; margin: 0; }
         
-        .timeline-number {
-            position: absolute;
-            top: 10px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--highlight-color);
-            opacity: 0;
-            z-index: 0;
-            text-shadow: 0 0 15px rgba(244, 114, 182, 0.5);
-            transform: scale(0.5);
+        .timeline-title-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
         }
-        .timeline-item:nth-child(odd) .timeline-number {
-            right: 100%;
-            margin-right: 20px;
-        }
-        .timeline-item:nth-child(even) .timeline-number {
-            left: 100%;
-            margin-left: 20px;
+        .timeline-item:nth-child(odd) .timeline-title-wrapper {
+            justify-content: flex-end;
         }
 
-        @media (max-width: 768px) {
-            .timeline-spine { left: 20px; }
-            .timeline-item, .timeline-item:nth-child(even) { width: 100%; margin-left: 0; padding-left: 50px; padding-right: 0; text-align: left; }
-            .timeline-item:nth-child(odd) { transform: translateX(20px); }
-            .timeline-item:nth-child(odd) .timeline-branch, .timeline-item:nth-child(even) .timeline-branch { left: 0; width: 30px; transform-origin: left; }
-            .timeline-item:nth-child(odd) .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: -6px; }
-            .timeline-number { display: none; }
+        .timeline-number {
+            position: absolute;
+            top: 21px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-strong-color);
+            opacity: 0;
+            z-index: 0;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+            transform: translateY(-50%) scale(0.5);
+            pointer-events: none;
+        }
+        .timeline-item:nth-child(odd) .timeline-number {
+            left: calc(100% + 25px);
+        }
+        .timeline-item:nth-child(even) .timeline-number {
+            right: calc(100% + 25px);
         }
 
         .cost-card { 
@@ -115,28 +158,29 @@
         .cost-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; }
         
         .card-modal-trigger {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
+            position: relative;
+            bottom: auto;
+            left: auto;
+            transform: none;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            width: 32px;
-            height: 32px;
-            display: flex;
+            width: 28px;
+            height: 28px;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             transition: background-color 0.2s, transform 0.2s;
             border: 1px solid var(--border-color);
+            flex-shrink: 0;
         }
         .card-modal-trigger:hover {
             background: rgba(255, 255, 255, 0.2);
-            transform: translateX(-50%) scale(1.1);
+            transform: scale(1.1);
         }
         .card-modal-trigger svg {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             color: var(--text-color);
         }
 
@@ -177,7 +221,32 @@
         .modal-text h3 { font-family: 'Lexend', sans-serif; color: var(--primary-color); font-size: 1.8rem; margin-top: 0; }
         .modal-impact { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
         .modal-impact h4 { font-family: 'Lexend', sans-serif; color: var(--highlight-color); margin: 0 0 0.5rem 0; }
+        
+        #processing-section .processing-steps { display: flex; justify-content: center; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
+        #processing-section .step { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 150px; opacity: 0.4; transition: opacity 0.5s; }
+        #processing-section .step .icon { width: 80px; height: 80px; border: 2px solid var(--border-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: all 0.5s; }
+        #processing-section .step .icon svg { width: 40px; height: 40px; color: var(--border-color); transition: color 0.5s; }
+        #processing-section .step .text { font-weight: 500; }
+        #processing-section .step.active { opacity: 1; }
+        #processing-section .step.active .icon { border-color: var(--primary-color); animation: pulse 1.5s infinite; }
+        #processing-section .step.active .icon svg { color: var(--primary-color); }
+        #processing-section .step.completed { opacity: 1; }
+        #processing-section .step.completed .icon { background-color: var(--primary-color); border-color: var(--primary-color); animation: none; }
+        #processing-section .step.completed .icon svg { color: var(--text-strong-color); }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); } 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); } }
+
         @media (max-width: 768px) {
+            .project-section-layout { flex-direction: column; align-items: center; }
+            .form-info { text-align: center; }
+            .form-info .section-title { text-align: center !important; }
+            .roi-calculator { grid-template-columns: 1fr; gap: 1.5rem; }
+            .timeline-spine { left: 20px; }
+            .timeline-item, .timeline-item:nth-child(even) { width: 100%; margin-left: 0; padding-left: 50px; padding-right: 0; text-align: left; }
+            .timeline-item:nth-child(odd) { transform: translateX(20px); }
+            .timeline-item:nth-child(odd) .timeline-branch, .timeline-item:nth-child(even) .timeline-branch { left: 0; width: 30px; transform-origin: left; }
+            .timeline-item:nth-child(odd) .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: -6px; }
+            .timeline-number { display: none; }
+            .timeline-content .card-modal-trigger { display: none; }
             .inertia-modal-content { flex-direction: column; padding: 1.5rem; }
             .modal-visual { flex-basis: auto; width: 100%; max-width: 200px; }
             .modal-text { flex-basis: auto; }
@@ -223,46 +292,82 @@
 
     <div class="scroll-container">
         <div class="background-gradient"></div>
-        <section class="hero full-page"><canvas id="particle-canvas"></canvas><div class="top-right-controls"><button id="lang-toggle" class="control-btn">EN</button><button id="fullscreen-toggle" class="control-btn"><svg viewBox="0 0 24 24"><path d="M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17H7V19H5V14H7V17H10V19Z"></path></svg></button></div><div class="container-interactive"><h1 class="hero-name" data-lang="heroName">IdéeLab inc.</h1><h2 class="hero-title" data-lang="heroTitle">Explorer l'innovation, créer le futur.</h2></div></section>
+        <section class="hero full-page">
+            <canvas id="particle-canvas"></canvas>
+            <div class="top-right-controls">
+                <button id="lang-toggle" class="control-btn">EN</button>
+                <button id="fullscreen-toggle" class="control-btn"><svg viewBox="0 0 24 24"><path d="M5,5H10V7H7V10H5V5M14,5H19V10H17V7H14V5M17,14H19V19H14V17H17V14M10,17H7V19H5V14H7V17H10V19Z"></path></svg></button>
+            </div>
+            <div class="container-interactive">
+                <h1 class="hero-name" data-lang="heroName">IdéeLab inc.</h1>
+                <h2 class="hero-title" data-lang="heroTitle">Explorer l'innovation, créer le futur.</h2>
+            </div>
+            <div class="scroll-indicator">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <polyline points="19 12 12 19 5 12"></polyline>
+                </svg>
+            </div>
+        </section>
         
         <section class="full-page" id="approach-section">
             <div class="container-interactive">
                 <h3 class="section-title" data-lang="approachTitle">Notre Approche</h3>
                 <div class="weaving-timeline-wrapper">
                     <div class="timeline-spine"></div>
-                    <div class="timeline-item">
+                    <div class="timeline-item" data-modal-id="decouverte">
                         <div class="timeline-number">1</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
                         <div class="timeline-content">
-                            <h4 data-lang="approachStep1Title">Découverte</h4>
+                            <div class="timeline-title-wrapper">
+                                <h4 data-lang="approachStep1Title">Découverte</h4>
+                                <div class="card-modal-trigger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                </div>
+                            </div>
                             <p data-lang="approachStep1Text">Analyse de vos défis et identification des opportunités.</p>
                         </div>
                     </div>
-                    <div class="timeline-item">
+                    <div class="timeline-item" data-modal-id="co-creation">
                         <div class="timeline-number">2</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
                         <div class="timeline-content">
-                            <h4 data-lang="approachStep2Title">Co-création</h4>
+                             <div class="timeline-title-wrapper">
+                                <h4 data-lang="approachStep2Title">Co-création</h4>
+                                <div class="card-modal-trigger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                </div>
+                            </div>
                             <p data-lang="approachStep2Text">Conception d'une stratégie et d'un plan d'action sur mesure.</p>
                         </div>
                     </div>
-                    <div class="timeline-item">
+                    <div class="timeline-item" data-modal-id="developpement">
                         <div class="timeline-number">3</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
                         <div class="timeline-content">
-                            <h4 data-lang="approachStep3Title">Développement</h4>
+                            <div class="timeline-title-wrapper">
+                                <h4 data-lang="approachStep3Title">Développement</h4>
+                                <div class="card-modal-trigger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                </div>
+                            </div>
                             <p data-lang="approachStep3Text">Construction et intégration de la solution avec agilité.</p>
                         </div>
                     </div>
-                    <div class="timeline-item">
+                    <div class="timeline-item" data-modal-id="deploiement">
                         <div class="timeline-number">4</div>
                         <div class="timeline-dot"></div>
                         <div class="timeline-branch"></div>
                         <div class="timeline-content">
-                            <h4 data-lang="approachStep4Title">Déploiement</h4>
+                            <div class="timeline-title-wrapper">
+                                <h4 data-lang="approachStep4Title">Déploiement</h4>
+                                <div class="card-modal-trigger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                                </div>
+                            </div>
                             <p data-lang="approachStep4Text">Lancement et suivi rigoureux pour une performance optimale.</p>
                         </div>
                     </div>
@@ -274,9 +379,34 @@
         
         <section class="full-page"><div class="container-interactive"><h3 class="section-title" data-lang="roiTitle">Calculez Votre Potentiel</h3><div class="roi-calculator"><div class="roi-controls"><div class="slider-group"><label for="employees" data-lang="roiEmployees">Nombre d'employés effectuant ces tâches</label><input type="range" id="employees" min="1" max="50" value="5"><span class="value"><span id="employeesValue">5</span></span></div><div class="slider-group"><label for="hours" data-lang="roiHours">Heures perdues par employé par semaine</label><input type="range" id="hours" min="1" max="10" value="3"><span class="value"><span id="hoursValue">3</span>h</span></div><div class="slider-group"><label for="wage" data-lang="roiWage">Coût horaire moyen d'un employé</label><input type="range" id="wage" min="20" max="100" value="35" step="5"><span class="value"><span id="wageValue">35</span> $/h</span></div></div><div class="roi-result"><div class="label" data-lang="roiSavings">Économies annuelles potentielles</div><div class="amount" id="roiAmount">$27,300</div><div class="per-year" data-lang="roiPerYear">par année</div></div></div></div></section>
         
-        <section class="full-page"><div class="project-section-layout"><div class="form-info"><h3 class="section-title" data-lang="projectTitle" style="text-align: left;">Définissons Votre Projet</h3><p data-lang="projectDesc">Pour nous permettre de cerner vos besoins, veuillez remplir ce court formulaire. Les informations fournies nous aideront à générer une ébauche de solution personnalisée dans votre offre de service.</p></div><div class="project-form" aria-label="Formulaire de projet"><div class="form-grid"><div class="form-group"><label for="companyName" data-lang="formCompany">Nom de l'entreprise</label><input type="text" id="companyName" data-lang-placeholder="formCompanyPlaceholder"></div><div class="form-group"><label for="clientName" data-lang="formName">Personne ressource</label><input type="text" id="clientName" data-lang-placeholder="formNamePlaceholder"></div></div><div class="form-group full-width"><label for="clientContact" data-lang="formContact">Coordonnées (courriel ou téléphone)</label><input type="text" id="clientContact" data-lang-placeholder="formContactPlaceholder"></div><div class="form-group full-width"><label for="projectGoals" data-lang="formGoals">Description du projet et objectifs</label><textarea id="projectGoals" data-lang-placeholder="formGoalsPlaceholder"></textarea></div><div class="form-group full-width"><button id="submit-project-btn" class="print-btn" style="width:100%;">Soumettre et Pré-générer la Solution</button><p id="feedback-message" aria-live="polite" style="text-align:center; margin-top:10px; color:var(--primary-color); height: 1.2em;"></p></div></div></div></section>
+        <section class="full-page" id="project-section"><div class="project-section-layout"><div class="form-info"><h3 class="section-title" data-lang="projectTitle" style="text-align: left;">Définissons Votre Projet</h3><p data-lang="projectDesc">Pour nous permettre de cerner vos besoins, veuillez remplir ce court formulaire. Les informations fournies nous aideront à générer une ébauche de solution personnalisée dans votre offre de service.</p></div><div class="project-form" aria-label="Formulaire de projet"><div class="form-grid"><div class="form-group"><label for="companyName" data-lang="formCompany">Nom de l'entreprise</label><input type="text" id="companyName" data-lang-placeholder="formCompanyPlaceholder"></div><div class="form-group"><label for="clientName" data-lang="formName">Personne ressource</label><input type="text" id="clientName" data-lang-placeholder="formNamePlaceholder"></div></div><div class="form-group full-width"><label for="clientContact" data-lang="formContact">Coordonnées (courriel ou téléphone)</label><input type="text" id="clientContact" data-lang-placeholder="formContactPlaceholder"></div><div class="form-group full-width"><label for="siteWebUrl">Site web de l'entreprise (Optionnel)</label><input type="url" id="siteWebUrl" placeholder="Ex: https://www.ideelab.dev"></div><div class="form-group full-width"><label for="projectGoals" data-lang="formGoals">Description du projet et objectifs</label><textarea id="projectGoals" data-lang-placeholder="formGoalsPlaceholder"></textarea></div><div class="form-group full-width"><button id="submit-project-btn" class="print-btn" style="width:100%;">Explorer l'innovation</button><p id="feedback-message" aria-live="polite" style="text-align:center; margin-top:10px; color:var(--primary-color); height: 1.2em;"></p></div></div></div></section>
 
-        <section class="full-page contact"><div class="container-interactive final-cta-container"><h3 class="section-title" data-lang="ctaTitle">Prêts à lancer le projet ?</h3><button id="generateBtn" class="print-btn" data-lang="ctaButton">Générer l'Offre de Service</button></div></section>
+        <!-- AJOUT : Page de traitement -->
+        <section class="full-page" id="processing-section" style="display: none;">
+            <div class="container-interactive">
+                <h3 class="section-title" id="processing-title">Analyse en cours...</h3>
+                <div class="processing-steps">
+                    <div class="step" id="step1">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg></div>
+                        <div class="text">Initialisation</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
+                        <div class="text">Analyse du site web</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.969 11.634a9.063 9.063 0 0 0-9.6-9.282 8.952 8.952 0 0 0-8.083 5.34c-.453.92-.682 1.927-.682 2.988s.229 2.068.682 2.988a8.952 8.952 0 0 0 8.083 5.34 9.063 9.063 0 0 0 9.6-9.282z"></path><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M12 12v.01"></path></svg></div>
+                        <div class="text">Analyse IA</div>
+                    </div>
+                    <div class="step" id="step4">
+                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
+                        <div class="text">Génération</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="full-page contact" id="final-section"><div class="container-interactive final-cta-container"><h3 class="section-title" data-lang="ctaTitle">Prêts à lancer le projet ?</h3><button id="generateBtn" class="print-btn" data-lang="ctaButton">Créer le futur</button></div></section>
     </div>
     
     <!-- MODALE POUR LE COÛT DE L'INERTIE -->
@@ -337,7 +467,7 @@
                 formName: "Personne ressource", formNamePlaceholder: "Ex: Jean Dupont",
                 formContact: "Coordonnées (courriel ou téléphone)", formContactPlaceholder: "Ex: jean.dupont@macompagnie.com",
                 formGoals: "Description du projet et objectifs", formGoalsPlaceholder: "Ex: Nous souhaitons automatiser notre service client...",
-                ctaTitle: "Prêts à lancer le projet ?", ctaButton: "Générer l'Offre de Service",
+                ctaTitle: "Prêts à lancer le projet ?", ctaButton: "Créer le futur",
                 contractTitle: "Offre de Service", contractPresentedBy: "Présentée par IdéeLab inc.",
                 contractClient: "Client", contractAttention: "À l'attention de:",
                 contractUnderstanding: "Compréhension du Projet", contractSolution: "Solution Proposée",
@@ -365,7 +495,7 @@
                 formName: "Contact Person", formNamePlaceholder: "E.g., John Doe",
                 formContact: "Contact Information (email or phone)", formContactPlaceholder: "E.g., john.doe@mycompany.com",
                 formGoals: "Project Description and Objectives", formGoalsPlaceholder: "E.g., We want to automate our customer service...",
-                ctaTitle: "Ready to start the project?", ctaButton: "Generate Service Offer",
+                ctaTitle: "Ready to start the project?", ctaButton: "Create the Future",
                 contractTitle: "Service Offer", contractPresentedBy: "Presented by IdéeLab Inc.",
                 contractClient: "Client", contractAttention: "Attention:",
                 contractUnderstanding: "Project Understanding", contractSolution: "Proposed Solution",
@@ -424,13 +554,13 @@
                 document.getElementById('roiAmount').textContent = formatter.format(annualSavings);
             }
 
-            async function generateSolutionWithAI(projectGoals, lang) {
+            async function generateSolutionWithAI(projectGoals, lang, siteWebUrl) {
                 try {
                     const apiUrl = new URL('/api/generate', window.location.href);
                     const response = await fetch(apiUrl.href, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ projectGoals, lang }),
+                        body: JSON.stringify({ projectGoals, lang, siteWebUrl }),
                     });
 
                     if (!response.ok) {
@@ -447,7 +577,6 @@
                     return data;
                 } catch (error) {
                     console.error("ERREUR CRITIQUE dans generateSolutionWithAI:", error);
-                    alert(`Désolé, une erreur critique est survenue. Consultez la console (F12) pour les détails techniques.`);
                     return null;
                 }
             }
@@ -470,7 +599,6 @@
                     const clientContact = document.getElementById('clientContact').value;
                     const potentialSavings = document.getElementById('roiAmount').textContent;
                     
-                    // --- CORRECTION : Utilisation des bonnes variables ---
                     document.getElementById('contractProjectGoals').textContent = generatedDescription || document.getElementById('projectGoals').value;
                     document.getElementById('contractSolution').innerHTML = generatedSolutionHtml;
                     
@@ -495,37 +623,55 @@
             document.getElementById('fullscreen-toggle').addEventListener('click', toggleFullscreen);
             
             document.getElementById('submit-project-btn').addEventListener('click', async () => {
-                const submitBtn = document.getElementById('submit-project-btn');
-                const feedbackMsg = document.getElementById('feedback-message');
-                const projectGoalsTextarea = document.getElementById('projectGoals');
-                const originalBtnText = submitBtn.textContent;
-                feedbackMsg.textContent = '';
-                const projectGoals = projectGoalsTextarea.value;
-
+                const projectGoals = document.getElementById('projectGoals').value;
                 if (!projectGoals.trim()) {
                     alert('Veuillez décrire votre projet avant de soumettre.');
                     return;
                 }
 
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = `Génération en cours... <span class="spinner"></span>`;
+                const siteWebUrl = document.getElementById('siteWebUrl').value;
+                const scrollContainer = document.querySelector('.scroll-container');
+                const processingSection = document.getElementById('processing-section');
                 
-                const result = await generateSolutionWithAI(projectGoals, currentLang);
+                scrollContainer.style.display = 'none';
+                processingSection.style.display = 'flex';
+
+                const steps = [
+                    { id: 'step1', delay: 500 },
+                    { id: 'step2', delay: 1500, optional: !siteWebUrl.trim() },
+                    { id: 'step3', delay: 1500 },
+                    { id: 'step4', delay: 1000 }
+                ];
+
+                for (const step of steps) {
+                    if (step.optional) continue;
+                    document.getElementById(step.id).classList.add('active');
+                    await new Promise(resolve => setTimeout(resolve, step.delay));
+                    document.getElementById(step.id).classList.remove('active');
+                    document.getElementById(step.id).classList.add('completed');
+                }
+
+                const result = await generateSolutionWithAI(projectGoals, currentLang, siteWebUrl);
                 
-                // --- CORRECTION : On gère le cas où la réponse est un tableau ---
                 const solutionData = Array.isArray(result) ? result[0] : result;
 
-                // --- CORRECTION : On vérifie la clé "solution" qui est réellement envoyée ---
                 if (solutionData && solutionData.solution) {
                     generatedSolutionHtml = solutionData.solution;
                     generatedHours = solutionData.estimatedHours;
-                    feedbackMsg.textContent = '✔ Solution pré-générée avec succès !';
-                    submitBtn.textContent = 'Régénérer la Solution';
+                    generatedDescription = "Généré par IA"; 
+                    
+                    document.getElementById('processing-title').textContent = 'Analyse terminée !';
+                    setTimeout(() => {
+                        processingSection.style.display = 'none';
+                        scrollContainer.style.display = 'block';
+                        document.getElementById('final-section').scrollIntoView();
+                    }, 1000);
                 } else {
-                    feedbackMsg.textContent = '❌ Échec de la génération.';
-                    submitBtn.textContent = originalBtnText;
+                    alert('Désolé, une erreur est survenue lors de la génération. Veuillez réessayer.');
+                    processingSection.style.display = 'none';
+                    scrollContainer.style.display = 'block';
+                    document.getElementById('project-section').scrollIntoView();
                 }
-                submitBtn.disabled = false;
             });
 
             document.getElementById('generateBtn').addEventListener('click', prepareAndPrint);
@@ -549,33 +695,35 @@
                 }
             });
 
-            tl.to(".timeline-spine", { scaleY: 1, duration: 2, ease: "power2.inOut" })
-              .to(".timeline-item", {
-                  opacity: 1,
-                  x: 0,
-                  duration: 0.8,
-                  ease: "power2.out",
-                  stagger: 0.5
-              }, "-=1.5")
-              .to(".timeline-dot", {
-                  scale: 1,
-                  duration: 0.5,
-                  ease: "back.out(1.7)",
-                  stagger: 0.5
-              }, "-=1.5")
-              .to(".timeline-number", {
-                  opacity: 0.4,
-                  scale: 1,
-                  duration: 0.6,
-                  ease: "power2.out",
-                  stagger: 0.5
-              }, "-=1.5")
-              .to(".timeline-branch", {
-                  scaleX: 1,
-                  duration: 0.6,
-                  ease: "power2.out",
-                  stagger: 0.5
-              }, "-=1.4");
+            // --- CORRECTION : Animation synchronisée et plus rapide ---
+            const staggerValue = 0.4; // Augmente la vitesse entre chaque item
+            const durationValue = 0.5; // Augmente la vitesse de l'animation de chaque item
+
+            tl.to(".timeline-spine", { scaleY: 1, duration: 1.5, ease: "power2.inOut" });
+
+            document.querySelectorAll('.timeline-item').forEach((item, index) => {
+                const dot = item.querySelector('.timeline-dot');
+                const branch = item.querySelector('.timeline-branch');
+                const number = item.querySelector('.timeline-number');
+
+                tl.to([item, number], {
+                    opacity: 1,
+                    x: 0,
+                    scale: 1,
+                    duration: durationValue,
+                    ease: "power2.out",
+                }, `-=${durationValue * 0.7}`) // Timing ajusté pour un meilleur enchaînement
+                .to(dot, {
+                    scale: 1,
+                    duration: 0.3,
+                    ease: "back.out(1.7)",
+                }, "<0.1")
+                .to(branch, {
+                    scaleX: 1,
+                    duration: 0.4,
+                    ease: "power2.out",
+                }, "<");
+            });
 
             const canvas = document.getElementById('particle-canvas');
             const ctx = canvas.getContext('2d');
@@ -646,7 +794,6 @@
                     impact: "Une réduction de 5 heures par semaine pour 5 employés à 35$/h représente une économie annuelle de plus de 45 000$.",
                     visual: `<svg width="200" height="200" viewBox="0 0 100 100">
                                 <circle cx="50" cy="50" r="40" stroke="${getComputedStyle(document.documentElement).getPropertyValue('--primary-color')}" stroke-width="2" fill="none" stroke-dasharray="5 5" />
-                                <path d="M50 10 V 90 M10 50 H 90" stroke="${getComputedStyle(document.documentElement).getPropertyValue('--border-color')}" stroke-width="1"/>
                                 <g id="gears">
                                     <circle cx="50" cy="50" r="15" fill="${getComputedStyle(document.documentElement).getPropertyValue('--secondary-color')}" />
                                     <circle cx="50" cy="25" r="5" fill="${getComputedStyle(document.documentElement).getPropertyValue('--primary-color')}" />
@@ -681,6 +828,56 @@
                                 <animate xlink:href="#rays" attributeName="opacity" from="0" to="1" dur="1s" begin="0.5s" fill="freeze" />
                                 <animate xlink:href="#bulb" attributeName="fill" from="${getComputedStyle(document.documentElement).getPropertyValue('--glass-bg')}" to="${getComputedStyle(document.documentElement).getPropertyValue('--primary-color')}" dur="1s" begin="0.5s" fill="freeze" />
                              </svg>`
+                },
+                'decouverte': {
+                    title: "Découverte",
+                    description: "Nous plongeons au cœur de vos opérations pour comprendre vos processus, identifier les points de friction et déceler les opportunités d'automatisation et d'IA à plus fort impact.",
+                    impact: "Cette phase est cruciale pour garantir que la solution finale soit parfaitement alignée avec vos objectifs stratégiques.",
+                    visual: `<svg width="200" height="200" viewBox="0 0 100 100">
+                                <circle cx="45" cy="45" r="25" stroke="${getComputedStyle(document.documentElement).getPropertyValue('--primary-color')}" stroke-width="2" fill="none"/>
+                                <line x1="60" y1="60" x2="75" y2="75" stroke="${getComputedStyle(document.documentElement).getPropertyValue('--primary-color')}" stroke-width="2" stroke-linecap="round"/>
+                                <path id="scan-line" d="M30 45 H 60" stroke="${getComputedStyle(document.documentElement).getPropertyValue('--secondary-color')}" stroke-width="2"/>
+                                <animate xlink:href="#scan-line" attributeName="d" from="M30 30 H 60" to="M30 60 H 60" dur="2s" repeatCount="indefinite" />
+                             </svg>`
+                },
+                'co-creation': {
+                    title: "Co-création",
+                    description: "Ensemble, nous concevons l'architecture de la solution. C'est un processus collaboratif où nous validons chaque étape pour construire une feuille de route claire et un plan d'action sur mesure.",
+                    impact: "Votre expertise métier combinée à notre savoir-faire technique crée une synergie puissante pour un projet réussi.",
+                    visual: `<svg width="200" height="200" viewBox="0 0 100 100">
+                                <path id="puzzle1" d="M20 40 H 40 V 60 H 20 Z" fill="${getComputedStyle(document.documentElement).getPropertyValue('--primary-color')}">
+                                    <animate attributeName="x" from="20" to="30" dur="1.5s" begin="0s" repeatCount="indefinite" direction="alternate" />
+                                </path>
+                                <path id="puzzle2" d="M60 40 H 80 V 60 H 60 Z" fill="${getComputedStyle(document.documentElement).getPropertyValue('--secondary-color')}">
+                                    <animate attributeName="x" from="60" to="50" dur="1.5s" begin="0s" repeatCount="indefinite" direction="alternate" />
+                                </path>
+                             </svg>`
+                },
+                'developpement': {
+                    title: "Développement",
+                    description: "Nos experts construisent la solution en utilisant des méthodes agiles. Vous suivez l'avancement en temps réel et participez aux validations régulières pour un ajustement parfait.",
+                    impact: "L'agilité nous permet de nous adapter rapidement et de garantir que le produit final correspond précisément à vos attentes.",
+                    visual: `<svg width="200" height="200" viewBox="0 0 100 100">
+                                <polyline points="30,50 40,60 50,40 60,60 70,50" stroke="${getComputedStyle(document.documentElement).getPropertyValue('--primary-color')}" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="100" stroke-dashoffset="100">
+                                    <animate attributeName="stroke-dashoffset" from="100" to="0" dur="2s" repeatCount="indefinite" />
+                                </polyline>
+                                <text x="25" y="35" font-family="monospace" font-size="10" fill="${getComputedStyle(document.documentElement).getPropertyValue('--secondary-color')}">&lt;/&gt;</text>
+                             </svg>`
+                },
+                'deploiement': {
+                    title: "Déploiement",
+                    description: "Nous intégrons la solution dans votre environnement de production, formons vos équipes et assurons un suivi rigoureux pour garantir une adoption réussie et une performance optimale.",
+                    impact: "Un lancement maîtrisé est la clé pour maximiser le retour sur investissement et l'autonomie de vos équipes.",
+                    visual: `<svg width="200" height="200" viewBox="0 0 100 100">
+                                <path id="rocket" d="M50 80 L 40 60 H 60 Z M 45 60 V 40 H 55 V 60 Z M 50 40 L 45 30 H 55 Z" fill="${getComputedStyle(document.documentElement).getPropertyValue('--primary-color')}">
+                                     <animateMotion path="M0,0 V-60" dur="2s" repeatCount="indefinite" />
+                                </path>
+                                <g id="smoke">
+                                    <circle cx="50" cy="85" r="3" fill="${getComputedStyle(document.documentElement).getPropertyValue('--secondary-color')}" opacity="0.8"><animate attributeName="cy" from="85" to="110" dur="1s" repeatCount="indefinite" begin="0s"/></circle>
+                                    <circle cx="45" cy="85" r="4" fill="${getComputedStyle(document.documentElement).getPropertyValue('--secondary-color')}" opacity="0.5"><animate attributeName="cy" from="85" to="115" dur="1s" repeatCount="indefinite" begin="0.2s"/></circle>
+                                    <circle cx="55" cy="85" r="3" fill="${getComputedStyle(document.documentElement).getPropertyValue('--secondary-color')}" opacity="0.6"><animate attributeName="cy" from="85" to="112" dur="1s" repeatCount="indefinite" begin="0.4s"/></circle>
+                                </g>
+                             </svg>`
                 }
             };
 
@@ -688,10 +885,11 @@
             const modalContent = modalOverlay.querySelector('.inertia-modal-content');
             const modalCloseBtn = document.getElementById('modal-close-btn');
 
-            document.querySelectorAll('.cost-card').forEach(card => {
+            document.querySelectorAll('.cost-card, .timeline-item').forEach(card => {
                 card.addEventListener('click', () => {
                     const modalId = card.dataset.modalId;
                     const data = modalData[modalId];
+                    if (!data) return; // Sécurité pour éviter les erreurs
 
                     document.getElementById('modal-title').textContent = data.title;
                     document.getElementById('modal-description').textContent = data.description;
