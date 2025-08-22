@@ -262,9 +262,16 @@
         .printable-contract { display: none; }
 
         @media print {
-            .scroll-container { display: none; }
+            .scroll-container, #processing-section, .inertia-modal-overlay { display: none !important; }
             .printable-contract { display: block; }
             body { background-color: #fff !important; font-size: 10pt; padding: 0 !important; margin: 0 !important; overflow: visible; font-family: 'Inter', sans-serif; color: #272727; }
+            .pdf-page { page-break-after: always; display: flex; flex-direction: column; height: 100vh; }
+            .pdf-page:last-child { page-break-after: auto; }
+            
+            .pdf-cover-page { justify-content: center; align-items: center; text-align: center; }
+            .pdf-cover-page .logo { font-family: 'Orbitron', sans-serif; font-size: 48pt; font-weight: 700; color: #111827; }
+            .pdf-cover-page .subtitle { font-family: 'Lexend', sans-serif; font-size: 18pt; color: #38bdf8; margin-top: 0.5rem; }
+
             .contract-container { width: 100%; height: 100%; display: flex; flex-direction: column; }
             .pdf-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #38bdf8; padding-bottom: 1rem; margin-bottom: 1.5rem; }
             .pdf-header .logo { font-family: 'Lexend', sans-serif; font-size: 24pt; font-weight: 700; color: #111827; }
@@ -432,20 +439,36 @@
     </div>
 
     <div class="printable-contract">
-        <div class="contract-container">
-            <header class="pdf-header"><div class="logo">IdéeLab</div><div class="title"><h1 data-lang-print="contractTitle"></h1><p data-lang-print="contractPresentedBy"></p></div></header>
-            <main class="pdf-main">
-                <div class="pdf-summary-band">
-                    <section class="pdf-section"><h2 data-lang-print="contractClient"></h2><p><strong id="contractCompanyName"></strong><br><span data-lang-print="contractAttention"></span> <span id="contractClientName"></span><br><span id="contractClientContact"></span></p></section>
-                    <section class="pdf-section roi-section"><h2 data-lang-print="contractRoiTitle"></h2><div class="roi-summary"><p data-lang-print="contractRoiText"></p><div class="roi-amount" id="contractRoiValue"></div></div></section>
-                    <section class="pdf-section"><h2 data-lang-print="contractInvestment"></h2><div class="estimate-details"><p><span id="contractEstimatedHours"></span>h @ 75.00 $</p><p class="estimate-total"><span id="contractTotalEstimate"></span></p></div></section>
-                </div>
-                <section class="pdf-section"><h2 data-lang-print="contractUnderstanding"></h2><blockquote id="contractProjectGoals"></blockquote></section>
-                <section class="pdf-section"><h2 data-lang-print="contractSolution"></h2><div id="contractSolution"></div></section>
-                <p class="disclaimer" data-lang-print="contractDisclaimer"></p>
-                <section class="pdf-section signature-section-container"><h2 data-lang-print="contractSignature"></h2><div class="signature-area"><div class="signature-block"><div class="signature-line"></div><p><strong>IdéeLab inc.</strong><br><span data-lang-print="signatureDate"></span></p></div><div class="signature-block"><div class="signature-line"></div><p><strong id="contractSignatureName"></strong><br><span data-lang-print="signatureDate"></span></p></div></div></section>
-            </main>
-            <footer class="pdf-footer">IdéeLab inc. | 123 Rue de l'Innovation, Montréal, QC | contact@ideelab.dev</footer>
+        <div class="pdf-page pdf-cover-page">
+            <div class="logo">IdéeLab inc.</div>
+            <div class="subtitle">Explorer l'innovation, créer le futur.</div>
+        </div>
+        <div class="pdf-page">
+            <div class="contract-container">
+                <header class="pdf-header"><div class="logo">IdéeLab</div><div class="title"><h1 data-lang-print="contractTitle"></h1><p data-lang-print="contractPresentedBy"></p></div></header>
+                <main class="pdf-main">
+                    <div class="pdf-summary-band">
+                        <section class="pdf-section"><h2 data-lang-print="contractClient"></h2><p><strong id="contractCompanyName"></strong><br><span data-lang-print="contractAttention"></span> <span id="contractClientName"></span><br><span id="contractClientContact"></span></p></section>
+                        <section class="pdf-section roi-section"><h2 data-lang-print="contractRoiTitle"></h2><div class="roi-summary"><p data-lang-print="contractRoiText"></p><div class="roi-amount" id="contractRoiValue"></div></div></section>
+                        <section class="pdf-section"><h2 data-lang-print="contractInvestment"></h2><div class="estimate-details"><p><span id="contractEstimatedHours"></span>h @ 75.00 $</p><p class="estimate-total"><span id="contractTotalEstimate"></span></p></div></section>
+                    </div>
+                    <section class="pdf-section"><h2 data-lang-print="contractUnderstanding"></h2><blockquote id="contractProjectGoals"></blockquote></section>
+                    <section class="pdf-section"><h2 data-lang-print="contractSolution"></h2><div id="contractSolution"></div></section>
+                </main>
+                <footer class="pdf-footer">IdéeLab inc. | 123 Rue de l'Innovation, Montréal, QC | contact@ideelab.dev</footer>
+            </div>
+        </div>
+        <div class="pdf-page">
+             <div class="contract-container">
+                <main class="pdf-main">
+                    <section class="pdf-section">
+                        <h2>Avis Légal et Conditions</h2>
+                        <p class="disclaimer" data-lang-print="contractDisclaimer"></p>
+                    </section>
+                     <section class="pdf-section signature-section-container"><h2 data-lang-print="contractSignature"></h2><div class="signature-area"><div class="signature-block"><div class="signature-line"></div><p><strong>IdéeLab inc.</strong><br><span data-lang-print="signatureDate"></span></p></div><div class="signature-block"><div class="signature-line"></div><p><strong id="contractSignatureName"></strong><br><span data-lang-print="signatureDate"></span></p></div></div></section>
+                </main>
+                <footer class="pdf-footer">IdéeLab inc. | 123 Rue de l'Innovation, Montréal, QC | contact@ideelab.dev</footer>
+            </div>
         </div>
     </div>
 
