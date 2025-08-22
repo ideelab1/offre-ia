@@ -222,6 +222,7 @@
         .modal-impact { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color); }
         .modal-impact h4 { font-family: 'Lexend', sans-serif; color: var(--highlight-color); margin: 0 0 0.5rem 0; }
         
+        #processing-section { position: fixed; top: 0; left: 0; width: 100%; height: 100dvh; z-index: 2000; }
         #processing-section .processing-steps { display: flex; justify-content: center; align-items: flex-start; gap: 2rem; flex-wrap: wrap; }
         #processing-section .step { display: flex; flex-direction: column; align-items: center; gap: 1rem; width: 150px; opacity: 0.4; transition: opacity 0.5s; }
         #processing-section .step .icon { width: 80px; height: 80px; border: 2px solid var(--border-color); border-radius: 50%; display: flex; justify-content: center; align-items: center; transition: all 0.5s; }
@@ -234,6 +235,11 @@
         #processing-section .step.completed .icon { background-color: var(--primary-color); border-color: var(--primary-color); animation: none; }
         #processing-section .step.completed .icon svg { color: var(--text-strong-color); }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); } 100% { box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); } }
+
+        .consent-group { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; text-align: left; }
+        .consent-group label { font-size: 0.9rem; color: var(--text-color); }
+        .consent-group a { color: var(--primary-color); text-decoration: underline; cursor: pointer; }
+        .consent-group input[type="checkbox"] { accent-color: var(--primary-color); }
 
         @media (max-width: 768px) {
             .project-section-layout { flex-direction: column; align-items: center; }
@@ -379,46 +385,46 @@
         
         <section class="full-page"><div class="container-interactive"><h3 class="section-title" data-lang="roiTitle">Calculez Votre Potentiel</h3><div class="roi-calculator"><div class="roi-controls"><div class="slider-group"><label for="employees" data-lang="roiEmployees">Nombre d'employés effectuant ces tâches</label><input type="range" id="employees" min="1" max="50" value="5"><span class="value"><span id="employeesValue">5</span></span></div><div class="slider-group"><label for="hours" data-lang="roiHours">Heures perdues par employé par semaine</label><input type="range" id="hours" min="1" max="10" value="3"><span class="value"><span id="hoursValue">3</span>h</span></div><div class="slider-group"><label for="wage" data-lang="roiWage">Coût horaire moyen d'un employé</label><input type="range" id="wage" min="20" max="100" value="35" step="5"><span class="value"><span id="wageValue">35</span> $/h</span></div></div><div class="roi-result"><div class="label" data-lang="roiSavings">Économies annuelles potentielles</div><div class="amount" id="roiAmount">$27,300</div><div class="per-year" data-lang="roiPerYear">par année</div></div></div></div></section>
         
-        <section class="full-page" id="project-section"><div class="project-section-layout"><div class="form-info"><h3 class="section-title" data-lang="projectTitle" style="text-align: left;">Définissons Votre Projet</h3><p data-lang="projectDesc">Pour nous permettre de cerner vos besoins, veuillez remplir ce court formulaire. Les informations fournies nous aideront à générer une ébauche de solution personnalisée dans votre offre de service.</p></div><div class="project-form" aria-label="Formulaire de projet"><div class="form-grid"><div class="form-group"><label for="companyName" data-lang="formCompany">Nom de l'entreprise</label><input type="text" id="companyName" data-lang-placeholder="formCompanyPlaceholder"></div><div class="form-group"><label for="clientName" data-lang="formName">Personne ressource</label><input type="text" id="clientName" data-lang-placeholder="formNamePlaceholder"></div></div><div class="form-group full-width"><label for="clientContact" data-lang="formContact">Coordonnées (courriel ou téléphone)</label><input type="text" id="clientContact" data-lang-placeholder="formContactPlaceholder"></div><div class="form-group full-width"><label for="siteWebUrl">Site web de l'entreprise (Optionnel)</label><input type="url" id="siteWebUrl" placeholder="Ex: https://www.ideelab.dev"></div><div class="form-group full-width"><label for="projectGoals" data-lang="formGoals">Description du projet et objectifs</label><textarea id="projectGoals" data-lang-placeholder="formGoalsPlaceholder"></textarea></div><div class="form-group full-width"><button id="submit-project-btn" class="print-btn" style="width:100%;">Explorer l'innovation</button><p id="feedback-message" aria-live="polite" style="text-align:center; margin-top:10px; color:var(--primary-color); height: 1.2em;"></p></div></div></div></section>
-
-        <!-- AJOUT : Page de traitement -->
-        <section class="full-page" id="processing-section" style="display: none;">
-            <div class="container-interactive">
-                <h3 class="section-title" id="processing-title">Analyse en cours...</h3>
-                <div class="processing-steps">
-                    <div class="step" id="step1">
-                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg></div>
-                        <div class="text">Initialisation</div>
-                    </div>
-                    <div class="step" id="step2">
-                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
-                        <div class="text">Analyse du site web</div>
-                    </div>
-                    <div class="step" id="step3">
-                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.969 11.634a9.063 9.063 0 0 0-9.6-9.282 8.952 8.952 0 0 0-8.083 5.34c-.453.92-.682 1.927-.682 2.988s.229 2.068.682 2.988a8.952 8.952 0 0 0 8.083 5.34 9.063 9.063 0 0 0 9.6-9.282z"></path><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M12 12v.01"></path></svg></div>
-                        <div class="text">Analyse IA</div>
-                    </div>
-                    <div class="step" id="step4">
-                        <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
-                        <div class="text">Génération</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <section class="full-page" id="project-section"><div class="project-section-layout"><div class="form-info"><h3 class="section-title" data-lang="projectTitle" style="text-align: left;">Définissons Votre Projet</h3><p data-lang="projectDesc">Pour nous permettre de cerner vos besoins, veuillez remplir ce court formulaire. Les informations fournies nous aideront à générer une ébauche de solution personnalisée dans votre offre de service.</p></div><div class="project-form" aria-label="Formulaire de projet"><div class="form-grid"><div class="form-group"><label for="companyName" data-lang="formCompany">Nom de l'entreprise</label><input type="text" id="companyName" data-lang-placeholder="formCompanyPlaceholder"></div><div class="form-group"><label for="clientName" data-lang="formName">Personne ressource</label><input type="text" id="clientName" data-lang-placeholder="formNamePlaceholder"></div></div><div class="form-group full-width"><label for="clientContact" data-lang="formContact">Coordonnées (courriel ou téléphone)</label><input type="text" id="clientContact" data-lang-placeholder="formContactPlaceholder"></div><div class="form-group full-width"><label for="siteWebUrl">Site web de l'entreprise (Optionnel)</label><input type="url" id="siteWebUrl" placeholder="Ex: https://www.ideelab.dev"></div><div class="form-group full-width"><label for="projectGoals" data-lang="formGoals">Description du projet et objectifs</label><textarea id="projectGoals" data-lang-placeholder="formGoalsPlaceholder"></textarea></div><div class="consent-group full-width"><input type="checkbox" id="consent-checkbox"><label for="consent-checkbox">J'ai lu et j'accepte la <a id="privacy-link">politique de confidentialité</a>.</label></div><div class="form-group full-width"><button id="submit-project-btn" class="print-btn" style="width:100%;" disabled>Explorer l'innovation</button></div></div></div></section>
 
         <section class="full-page contact" id="final-section"><div class="container-interactive final-cta-container"><h3 class="section-title" data-lang="ctaTitle">Prêts à lancer le projet ?</h3><button id="generateBtn" class="print-btn" data-lang="ctaButton">Créer le futur</button></div></section>
     </div>
+
+    <!-- MODIFICATION : Section de traitement déplacée hors du conteneur de défilement -->
+    <section class="full-page" id="processing-section" style="display: none;">
+        <div class="container-interactive">
+            <h3 class="section-title" id="processing-title">Analyse en cours...</h3>
+            <div class="processing-steps">
+                <div class="step" id="step1">
+                    <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg></div>
+                    <div class="text">Initialisation</div>
+                </div>
+                <div class="step" id="step2">
+                    <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></div>
+                    <div class="text">Analyse du site web</div>
+                </div>
+                <div class="step" id="step3">
+                    <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.969 11.634a9.063 9.063 0 0 0-9.6-9.282 8.952 8.952 0 0 0-8.083 5.34c-.453.92-.682 1.927-.682 2.988s.229 2.068.682 2.988a8.952 8.952 0 0 0 8.083 5.34 9.063 9.063 0 0 0 9.6-9.282z"></path><path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path><path d="M12 12v.01"></path></svg></div>
+                    <div class="text">Analyse IA</div>
+                </div>
+                <div class="step" id="step4">
+                    <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg></div>
+                    <div class="text">Génération</div>
+                </div>
+            </div>
+        </div>
+    </section>
     
-    <!-- MODALE POUR LE COÛT DE L'INERTIE -->
+    <!-- MODALE POUR LE COÛT DE L'INERTIE ET POLITIQUE -->
     <div id="inertia-modal" class="inertia-modal-overlay">
         <div class="inertia-modal-content">
-            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <button class="modal-close-btn">&times;</button>
             <div class="modal-visual" id="modal-visual-content"></div>
             <div class="modal-text">
                 <h3 id="modal-title"></h3>
                 <p id="modal-description"></p>
                 <div class="modal-impact">
-                    <h4 data-lang="modalImpactTitle">Impact Financier</h4>
+                    <h4 id="modal-impact-title" data-lang="modalImpactTitle">Impact Financier</h4>
                     <p id="modal-impact-text"></p>
                 </div>
             </div>
@@ -556,8 +562,8 @@
 
             async function generateSolutionWithAI(projectGoals, lang, siteWebUrl) {
                 try {
-                    const apiUrl = new URL('/api/generate', window.location.href);
-                    const response = await fetch(apiUrl.href, {
+                    const apiUrl = '/api/generate';
+                    const response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ projectGoals, lang, siteWebUrl }),
@@ -695,9 +701,8 @@
                 }
             });
 
-            // --- CORRECTION : Animation synchronisée et plus rapide ---
-            const staggerValue = 0.4; // Augmente la vitesse entre chaque item
-            const durationValue = 0.5; // Augmente la vitesse de l'animation de chaque item
+            const staggerValue = 0.4; 
+            const durationValue = 0.5; 
 
             tl.to(".timeline-spine", { scaleY: 1, duration: 1.5, ease: "power2.inOut" });
 
@@ -712,7 +717,7 @@
                     scale: 1,
                     duration: durationValue,
                     ease: "power2.out",
-                }, `-=${durationValue * 0.7}`) // Timing ajusté pour un meilleur enchaînement
+                }, `-=${durationValue * 0.7}`) 
                 .to(dot, {
                     scale: 1,
                     duration: 0.3,
@@ -878,28 +883,59 @@
                                     <circle cx="55" cy="85" r="3" fill="${getComputedStyle(document.documentElement).getPropertyValue('--secondary-color')}" opacity="0.6"><animate attributeName="cy" from="85" to="112" dur="1s" repeatCount="indefinite" begin="0.4s"/></circle>
                                 </g>
                              </svg>`
+                },
+                'privacy': {
+                    title: "Politique de Confidentialité",
+                    description: "Nous collectons vos informations (nom, contact, objectifs) uniquement pour générer cette offre de service. Ces données sont transmises à des services d'IA tiers, comme Google Gemini, qui peuvent être situés hors du Québec. Nous ne stockons pas vos informations personnelles après la génération de l'offre. En utilisant ce service, vous consentez à ce traitement.",
+                    impact: null,
+                    visual: `<svg width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`
                 }
             };
 
             const modalOverlay = document.getElementById('inertia-modal');
             const modalContent = modalOverlay.querySelector('.inertia-modal-content');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
+            const modalCloseBtn = modalOverlay.querySelector('.modal-close-btn');
+
+            function openModal(modalId) {
+                const data = modalData[modalId];
+                if (!data) return;
+
+                const impactSection = modalContent.querySelector('.modal-impact');
+                
+                modalContent.querySelector('#modal-title').textContent = data.title;
+                modalContent.querySelector('#modal-description').textContent = data.description;
+                modalContent.querySelector('#modal-visual-content').innerHTML = data.visual;
+
+                if (data.impact) {
+                    impactSection.style.display = 'block';
+                    modalContent.querySelector('#modal-impact-title').style.display = 'block';
+                    modalContent.querySelector('#modal-impact-text').textContent = data.impact;
+                } else {
+                    impactSection.style.display = 'none';
+                }
+
+                document.body.classList.add('modal-open');
+                gsap.to(modalOverlay, { autoAlpha: 1, duration: 0.3, onStart: () => modalOverlay.style.display = 'flex' });
+                gsap.to(modalContent, { scale: 1, duration: 0.3, ease: 'back.out(1.7)' });
+            }
 
             document.querySelectorAll('.cost-card, .timeline-item').forEach(card => {
-                card.addEventListener('click', () => {
-                    const modalId = card.dataset.modalId;
-                    const data = modalData[modalId];
-                    if (!data) return; // Sécurité pour éviter les erreurs
-
-                    document.getElementById('modal-title').textContent = data.title;
-                    document.getElementById('modal-description').textContent = data.description;
-                    document.getElementById('modal-impact-text').textContent = data.impact;
-                    document.getElementById('modal-visual-content').innerHTML = data.visual;
-
-                    document.body.classList.add('modal-open');
-                    gsap.to(modalOverlay, { autoAlpha: 1, duration: 0.3, onStart: () => modalOverlay.style.display = 'flex' });
-                    gsap.to(modalContent, { scale: 1, duration: 0.3, ease: 'back.out(1.7)' });
+                card.addEventListener('click', (e) => {
+                    // Empêche le clic sur le bouton de déclencher le clic sur la carte
+                    if (e.target.closest('.card-modal-trigger')) return;
+                    openModal(card.dataset.modalId);
                 });
+            });
+            
+            document.getElementById('privacy-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal('privacy');
+            });
+
+            const consentCheckbox = document.getElementById('consent-checkbox');
+            const submitBtn = document.getElementById('submit-project-btn');
+            consentCheckbox.addEventListener('change', () => {
+                submitBtn.disabled = !consentCheckbox.checked;
             });
 
             function closeModal() {
