@@ -287,9 +287,13 @@
             .pdf-summary-band .pdf-section h2 { font-size: 11pt; margin-bottom: 0.5rem; padding-bottom: 0.25rem; }
             .pdf-summary-band p, .pdf-summary-band .estimate-details { font-size: 9pt; }
             .pdf-summary-band .roi-section { background-color: #eefbff; border-color: #38bdf8; }
+            .pdf-summary-band .client-section { background-color: #f0fff4; border-color: #2f855a; }
             .roi-summary p { font-size: 8pt; text-align: center; margin-bottom: 0.25rem; }
             .roi-amount { font-family: 'Lexend', sans-serif; font-size: 16pt; font-weight: 700; text-align: center; color: #1e3a8a; }
             .estimate-details .estimate-total { font-size: 14pt; margin-top: 0.5rem; text-align: center; font-weight: bold; color: #111827}
+            .efficiency-gain { margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #d1d5db; }
+            .efficiency-gain p { text-align: center; font-size: 8pt; margin-bottom: 0.25rem; }
+            .gain-amount { font-family: 'Lexend', sans-serif; font-size: 16pt; font-weight: 700; text-align: center; color: #2f855a; }
             blockquote { font-size: 10pt; padding: 0.5rem 1rem; border-left: 3px solid #38bdf8; margin-left: 0; font-style: italic; white-space: pre-wrap; background-color: #f8f9fa;}
             .disclaimer { font-size: 8pt; font-style: italic; color: #6c757d; margin-top: 1.5rem; border-top: 1px solid #e5e7eb; padding-top: 0.5rem; }
             .signature-section-container { background-color: transparent; padding: 0; margin-top: 2rem; }
@@ -448,9 +452,9 @@
                 <header class="pdf-header"><div class="logo">IdéeLab</div><div class="title"><h1 data-lang-print="contractTitle"></h1><p data-lang-print="contractPresentedBy"></p></div></header>
                 <main class="pdf-main">
                     <div class="pdf-summary-band">
-                        <section class="pdf-section"><h2 data-lang-print="contractClient"></h2><p><strong id="contractCompanyName"></strong><br><span data-lang-print="contractAttention"></span> <span id="contractClientName"></span><br><span id="contractClientContact"></span></p></section>
                         <section class="pdf-section roi-section"><h2 data-lang-print="contractRoiTitle"></h2><div class="roi-summary"><p data-lang-print="contractRoiText"></p><div class="roi-amount" id="contractRoiValue"></div></div></section>
                         <section class="pdf-section"><h2 data-lang-print="contractInvestment"></h2><div class="estimate-details"><p><span id="contractEstimatedHours"></span>h @ 75.00 $</p><p class="estimate-total"><span id="contractTotalEstimate"></span></p></div></section>
+                        <section class="pdf-section client-section"><h2>Gain en efficacité</h2><div class="efficiency-gain"><p>Gain net annuel pour le client</p><div class="gain-amount" id="contractEfficiencyGain"></div></div></section>
                     </div>
                     <section class="pdf-section"><h2 data-lang-print="contractUnderstanding"></h2><blockquote id="contractProjectGoals"></blockquote></section>
                     <section class="pdf-section"><h2 data-lang-print="contractSolution"></h2><div id="contractSolution"></div></section>
@@ -634,13 +638,19 @@
                     const estimatedHours = generatedHours;
                     const totalCost = estimatedHours * 75;
 
+                    const roiValue = parseFloat(potentialSavings.replace(/[^0-9.-]+/g,""));
+                    const efficiencyGain = roiValue - totalCost;
+
+                    const formatter = new Intl.NumberFormat(currentLang === 'fr' ? 'fr-CA' : 'en-CA', { style: 'currency', currency: 'CAD' });
+
                     document.getElementById('contractClientName').textContent = clientName || "[Non spécifié]";
                     document.getElementById('contractCompanyName').textContent = companyName || "[Non spécifié]";
                     document.getElementById('contractClientContact').textContent = clientContact || "[Non spécifié]";
                     document.getElementById('contractRoiValue').textContent = potentialSavings;
                     document.getElementById('contractSignatureName').textContent = companyName || "[Non spécifié]";
                     document.getElementById('contractEstimatedHours').textContent = estimatedHours;
-                    document.getElementById('contractTotalEstimate').textContent = `${totalCost.toLocaleString(currentLang === 'fr' ? 'fr-CA' : 'en-CA', { style: 'currency', currency: 'CAD' })}`;
+                    document.getElementById('contractTotalEstimate').textContent = formatter.format(totalCost);
+                    document.getElementById('contractEfficiencyGain').textContent = `+ ${formatter.format(efficiencyGain)}`;
                     
                     setTimeout(() => { window.print(); }, 100);
                 } finally {
